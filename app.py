@@ -38,14 +38,24 @@ def init_db():
 
 # Route to get all diary entries
 @app.route('/api/diary-entries', methods=['GET'])
-def get_diary_entries():
+def get_entries():
     conn = get_db_connection()
-    cur = conn.cursor(cursor_factory=RealDictCursor)
-    cur.execute('SELECT * FROM diary_entries ORDER BY created_at DESC')
-    entries = cur.fetchall()
-    cur.close()
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, title, content, created_at FROM diary_entries ORDER BY created_at ASC')
+    entries = cursor.fetchall()
+    cursor.close()
     conn.close()
-    return jsonify(entries)
+
+    entries_list = []
+    for entry in entries:
+        entries_list.append({
+            'id': entry[0],
+            'title': entry[1],
+            'content': entry[2],
+            'created_at': entry[3]
+        })
+
+    return jsonify(entries_list)
 
 # Route to create a new diary entry
 @app.route('/api/diary-entries', methods=['POST'])
