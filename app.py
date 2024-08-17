@@ -14,7 +14,6 @@ def get_db_connection():
         database="diary_db",  # Replace with your database name
         user="diary_db_owner",  # Replace with your PostgreSQL username
         password="5SITtP6GVDde",  # Replace with your PostgreSQL password
-        port="5432",  # Use the default PostgreSQL port
         sslmode="require"  # Ensure SSL is used
     )
     return conn
