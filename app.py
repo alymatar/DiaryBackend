@@ -6,16 +6,20 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Database connection
+
+
 def get_db_connection():
     conn = psycopg2.connect(
-        host="localhost",
+        host="ep-still-water-a1o6f42t.ap-southeast-1.aws.neon.tech",  # Replace with your database host
         database="diary_db",  # Replace with your database name
-        user="postgres",  # Replace with your PostgreSQL username
-        password="ali9141353",
-        port="5432"
+        user="diary_db_owner",  # Replace with your PostgreSQL username
+        password="5SITtP6GVDde",  # Replace with your PostgreSQL password
+        port="5432",  # Use the default PostgreSQL port
+        sslmode="require"  # Ensure SSL is used
     )
     return conn
+
+    
 
 # Initialize the database (create table if not exists)
 def init_db():
